@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="Generator" content="Sublime Text3">
+    <meta name="Author" content="深山一枯柴">
+    <meta name="website" content="http://www.lihui-v.top">
+    <meta name="Description" content="马不停蹄的🐌!">
+    <style type="text/css">
+    	#box {
+    		width: 640px;
+    		height: 960px;
+    		margin: 0 auto;
+    		/*background: red;*/
+        overflow: auto;
+    	}
+    	.sub_div {
+    		width: 100%;
+    		height: 100px;
+    		background: rgb(244,244,244);
+        border-bottom: 1px solid gray;
+        padding: 40px;
+        position: relative;
+    	}
+      .img_big {
+        width:130px;
+        height: 100px;
+        /*background: yellow;*/
+        
+      }
+      .title {
+        width: 400px;
+        height: 40px;
+        position: absolute;
+        top: 20px;
+        left: 200px;
+      }
+      .m_summary {
+        width: 400px;
+        height: 40px;
+        position: absolute;
+        top: 60px;
+        left: 200px;
+      }
+      .btn_dele {
+        width: 50px;
+        height: 30px;
+        border-radius: 5px;
+        position: absolute;
+        right: 100px;
+        bottom: 20px;
+      }
+      .btn_add {
+        width: 50px;
+        height: 30px;
+        border-radius: 5px;
+        position: absolute;
+        right: 200px;
+        bottom: 20px;
+      }
+
+    </style>
+
+    
+</head>
+<body>
+      <div id="box">
+      	
+      </div>
+      <script type="text/javascript">
+        var dataArry = [];
+        function fun(date){
+         dataArry = date.data.list;
+         creatCell(dataArry);
+        }
+       
+        var box = document.getElementById('box');
+           
+           function creatCell(dataArry){
+                box.innerHTML = "";
+            for (var i = 0; i < dataArry.length; i++) {
+             var sub_box = document.createElement("div");
+             sub_box.className = "sub_div";
+             box.appendChild(sub_box);
+
+             var img = document.createElement("img");
+             img.className = "img_big";
+             img.src =  dataArry[i].m_image_url;
+             sub_box.appendChild(img);
+           
+             var h3 = document.createElement("h3");
+             h3.className = "title";
+             h3.innerHTML =  dataArry[i].m_title;
+             sub_box.appendChild(h3);
+
+             var h5 = document.createElement("h5");
+             h5.className = "m_summary";
+             h5.innerHTML =  dataArry[i].m_summary;
+             sub_box.appendChild(h5);
+
+             var btn_add = document.createElement("button");
+             btn_add.className = "btn_add";
+             btn_add.innerHTML =  "添加";
+             btn_add.index = i;
+             sub_box.appendChild(btn_add);
+             btn_add.onclick = function (){
+              console.log(rand(dataArry.length));
+               dataArry.push(dataArry[rand(dataArry.length)]);
+                 creatCell(dataArry);
+                
+             }
+
+             var btn_dele = document.createElement("button");
+             btn_dele.className = "btn_dele";
+             btn_dele.innerHTML =  "删除";
+             btn_dele.index = i;
+             sub_box.appendChild(btn_dele);
+             btn_dele.onclick = function (){
+                 dataArry.splice(this.index, 1);
+                 creatCell(dataArry);
+             }
+             
+
+           }
+
+       }
+
+           
+      function rand(long){
+        return parseInt(Math.random()*long);
+      }
+           
+  
+    </script>
+     <script type="text/javascript" src="baijia0.json"></script>
+</body>
+</html>
